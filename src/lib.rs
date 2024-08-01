@@ -9,7 +9,7 @@ mod touch;
 
 const FT6336_ADDR: u8 = 0x38;
 
-/// PCF8563 error type.
+/// FT6336 error type.
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[non_exhaustive]
