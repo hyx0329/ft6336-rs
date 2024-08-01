@@ -112,11 +112,17 @@ impl<I2C: I2c> Ft6336<I2C> {
     }
 
     /// Sets the INT pin behavior to generate a pulse when there's new touch event.
+    ///
+    /// In either interrupt mode, the touch released events will not generate an
+    /// iterrupt signal.
     pub fn interrupt_by_pulse(&mut self) -> Result<(), Error> {
         self.write_u8(0xA4, 0x01)
     }
 
     /// Sets the INT pin behavior to drive low when there's new touch event to process.
+    ///
+    /// In either interrupt mode, the touch released events will not generate an
+    /// iterrupt signal.
     pub fn interrupt_by_state(&mut self) -> Result<(), Error> {
         self.write_u8(0xA4, 0x00)
     }
