@@ -55,6 +55,10 @@ impl<I2C: I2c> Ft6336<I2C> {
         Self { i2c }
     }
 
+    pub fn destroy(self) -> I2C {
+        self.i2c
+    }
+
     /// Switchs to work mode, to avoid rare case that the controller
     /// is left in factory mode.
     ///
