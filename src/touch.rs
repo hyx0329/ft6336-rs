@@ -38,6 +38,11 @@ pub struct PointsIter {
 impl Iterator for PointsIter {
     type Item = Point;
 
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        let bond = self.data[0] as usize;
+        (bond, Some(bond))
+    }
+
     fn next(&mut self) -> Option<Self::Item> {
         if self.data[0] > 0 {
             self.data[0] -= 1;
