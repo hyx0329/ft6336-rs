@@ -150,23 +150,27 @@ impl<I2C: I2c> Ft6336<I2C> {
         }
     }
 
-    /// Sets the scan rate under active mode, in Hertz.
-    ///
-    /// minimum 0x04, maximum 0x14
-    pub fn set_scan_rate(&mut self, value: u8) -> Result<(), Error> {
-        if value < 0x04 {
-            self.write_u8(0x88, 0x04)
-        } else if value > 0x14 {
-            self.write_u8(0x88, 0x14)
-        } else {
-            self.write_u8(0x88, value)
-        }
+    /// Gets the scan report period under active mode, in millisecond
+    pub fn scan_report_period(&mut self) -> Result<u8, Error> {
+        self.read_u8(0x88)
     }
 
-    /// Sets the scan rate under monitor mode, in Hertz.
+    /// Sets the scan report period under active mode, in millisecond.
     ///
-    /// minimum 0x04, maximum 0x14
-    pub fn set_monitor_scan_rate(&mut self, value: u8) -> Result<(), Error> {
+    /// Hardware may defaults to 0x13(19), dependent on OEM.
+    pub fn set_scan_report_period(&mut self, value: u8) -> Result<(), Error> {
+        self.write_u8(0x88, value)
+    }
+
+    /// Gets the scan report period under monitor mode, in millisecond.
+    pub fn scan_report_period_monitor_mode(&mut self) -> Result<u8, Error> {
+        self.read_u8(0x89)
+    }
+
+    /// Sets the scan report period under monitor mode, in millisecond.
+    ///
+    /// Hardware defaults to 0x28(40), which means 25Hz.
+    pub fn set_scan_report_period_monitor_mode(&mut self, value: u8) -> Result<(), Error> {
         if value < 0x04 {
             self.write_u8(0x89, 0x04)
         } else if value > 0x14 {
