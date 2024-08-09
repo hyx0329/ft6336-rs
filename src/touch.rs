@@ -48,7 +48,9 @@ impl Iterator for PointsIter {
             self.data[0] -= 1;
             let index_base = 1 + (self.data[0] as usize) * 6;
             let p = Point {
-                index: self.data[index_base + 2] >> 4,
+                // only 2 points(index 0 and 1), other index are not valid
+                // in very rare cases, the index can be 5, which should be a bug
+                index: (self.data[index_base + 2] >> 4) & 0b1,
                 action: PointAction::from_primitive(self.data[index_base] >> 6),
                 x: (((self.data[index_base] & 0xF) as u16) << 8)
                     + (self.data[index_base + 1] as u16),
