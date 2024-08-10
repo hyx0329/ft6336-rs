@@ -5,7 +5,7 @@
 use embedded_hal::i2c::{Error as I2cError, ErrorKind as I2cErrorKind, I2c};
 use num_enum::{FromPrimitive, IntoPrimitive};
 
-mod touch;
+pub mod touch;
 
 const FT6336_ADDR: u8 = 0x38;
 
