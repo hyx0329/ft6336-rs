@@ -73,6 +73,8 @@ impl<I2C: I2c> Ft6336<I2C> {
     /// - FT6336G: 0x01, ?, ?
     /// - FT6336U: 0x02, ?, ?
     /// - FT6426: 0x03, ?, ?
+    ///
+    /// The last/third byte is probably the chip vendor ID.
     pub fn chip_code(&mut self) -> Result<(u8, u8, u8), Error> {
         let low = self.read_u8(0xA0)?;
         let mid = self.read_u8(0x9F)?;
@@ -94,7 +96,7 @@ impl<I2C: I2c> Ft6336<I2C> {
         self.read_u8(0xA6)
     }
 
-    /// Returns vendor ID.
+    /// Returns panel assembly vendor ID.
     pub fn vender_id(&mut self) -> Result<u8, Error> {
         self.read_u8(0xA8)
     }
